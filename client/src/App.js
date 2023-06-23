@@ -14,7 +14,6 @@ import UserPage from "./pages/UserPage";
 //Components
 import Header from "./componenets/Header";
 import Footer from "./componenets/Footer";
-//import Footer from "./componenets/Footer";
 
 function App() {
   return (

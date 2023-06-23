@@ -1,7 +1,12 @@
 import React from 'react';
-
+import "../assets/Footer.css"
 function Footer() {
-    return <div> Footer</div>;
+    return(
+        <footer>
+            <div>Copyright - @</div>
+        </footer>
+
+    )
 }
 
 export default  Footer;

@@ -1,9 +1,12 @@
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import React from 'react';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React from "react";
+import "semantic-ui-css/semantic.min.css";
+import "./App.css";
 
 //Pages
 import MainPage from "./pages/MainPage";
 import NFTCollectionPage from "./pages/NFTCollectionPage";
+import NFTDetailPage from "./pages/NFTDetailPage";
 //import NFTMintPage from "./pages/NFTMintPage";
 //import NotFound from "./pages/NotFound";
 import UserPage from "./pages/UserPage";
@@ -15,11 +18,12 @@ import Header from "./componenets/Header";
 function App() {
   return (
     <BrowserRouter>
-      <Header/>
+      <Header />
       <Routes>
-        <Route path='/' element={<MainPage />} />
-        <Route path='/userpage' element={<UserPage />} />
-        <Route path='/collection' element={<NFTCollectionPage />} />
+        <Route path="/" element={<MainPage />} />
+        <Route path="/userpage" element={<UserPage />} />
+        <Route path="/collection" element={<NFTCollectionPage />} />
+        <Route path="/collection/detail" element={<NFTDetailPage />} />
       </Routes>
     </BrowserRouter>
   );

@@ -10,17 +10,19 @@ import UserPage from "./pages/UserPage";
 
 //Components
 import Header from "./componenets/Header";
+import Footer from "./componenets/Footer";
 //import Footer from "./componenets/Footer";
 
 function App() {
   return (
     <BrowserRouter>
       <Header/>
-      <Routes>
-        <Route path='/' element={<MainPage />} />
-        <Route path='/userpage' element={<UserPage />} />
-        <Route path='/collection' element={<NFTCollectionPage />} />
-      </Routes>
+          <Routes>
+            <Route path='/' element={<MainPage />} />
+            <Route path='/userpage' element={<UserPage />} />
+            <Route path='/collection' element={<NFTCollectionPage />} />
+          </Routes>
+        <Footer/>
     </BrowserRouter>
   );
 }

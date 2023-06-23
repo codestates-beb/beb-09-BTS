@@ -13,6 +13,7 @@ import UserPage from "./pages/UserPage";
 
 //Components
 import Header from "./componenets/Header";
+import Footer from "./componenets/Footer";
 //import Footer from "./componenets/Footer";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path="/collection" element={<NFTCollectionPage />} />
         <Route path="/collection/detail" element={<NFTDetailPage />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

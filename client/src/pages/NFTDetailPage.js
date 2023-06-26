@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   List,
   Container,
@@ -6,8 +7,11 @@ import {
   Grid,
   Image,
   Accordion,
+  Divider,
+  Button,
 } from "semantic-ui-react";
 import mockImage from "../logo.svg";
+import SlideItemList from "../componenets/SlideItemList";
 
 export default function NFTDetailPage() {
   const [activeIndex, setActiveIndex] = useState([]);
@@ -216,7 +220,13 @@ export default function NFTDetailPage() {
                   More From This Collection
                 </Accordion.Title>
                 <Accordion.Content active={activeIndex.includes(9)}>
-                  <p>Price Graph</p>
+                  <SlideItemList />
+                  <Divider />
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <Link to="/collection">
+                      <Button>View collection</Button>
+                    </Link>
+                  </div>
                 </Accordion.Content>
               </Accordion>
             </Container>

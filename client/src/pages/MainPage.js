@@ -1,5 +1,10 @@
-import React from 'react';
+import React from "react";
+import SlideCollectionList from "../componenets/SlideCollectionList";
 
-export default function MainPage(){
-    return <div> 메인 페이지 </div>;
+export default function MainPage() {
+  return (
+    <div>
+      <SlideCollectionList />
+    </div>
+  );
 }

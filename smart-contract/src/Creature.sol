@@ -13,7 +13,7 @@ contract Creature is ERC721Tradable {
     {}
 
     function baseTokenURI() override public pure returns (string memory) {
-        return "https://creatures-api.opensea.io/api/creature/";
+        return "https://ipfs.io/ipfs/QmZjPEMKkm7kmLjxdVKb7btR4Jqy4Kh3xHfYESrXZq1BCt";
     }
 
     function contractURI() public pure returns (string memory) {

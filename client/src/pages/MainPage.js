@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import SlideCollectionList from "../componenets/SlideCollectionList";
 import { Header as H, Form, Menu } from "semantic-ui-react";
-import Footer from "../componenets/Footer";
-import Header from "../componenets/Header";
 
 export default function MainPage() {
   const [activeItem, setActiveItem] = useState("All");
 
   return (
     <div>
-      <Header />
       <div style={{ margin: "1rem 4rem" }}>
         <Menu secondary>
           <Menu.Item
@@ -57,7 +54,6 @@ export default function MainPage() {
           <SlideCollectionList />
         </Form>
       </div>
-      <Footer />
     </div>
   );
 }

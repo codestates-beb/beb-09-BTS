@@ -1,42 +1,84 @@
-import React from "react";
-import "../assets/Header.css";
-import { Input, Button, Icon } from "semantic-ui-react";
+import React, {useEffect, useState} from 'react';
+import "../assets/Header.css"
+import {Input} from "semantic-ui-react";
+import {Button} from "semantic-ui-react";
+import Login from "./Login";
 
 function Header() {
-  return (
-    <header>
-      <div className="btnMenu">
-        <button>
-          <Icon className="imgMenu" alt="Menu Icon" name="align justify" />
-        </button>
-      </div>
-      <div className="linkToMain">
-        <a href="/">
-          <div className="imgLogo">
-            <img
-              alt="OpenSea Logo"
-              src="https://storage.googleapis.com/opensea-static/Logomark/OpenSea-Full-Logo%20(dark).svg"
-              width="100rem"
-            />
-          </div>
-        </a>
-      </div>
-      <div className="inputSearch">
-        <Input
-          style={{ width: "40rem" }}
-          action="Search"
-          placeholder="Search items, collections, and accounts"
-        ></Input>
-      </div>
-      <div className="btnUser">
-        <Button.Group>
-          <Button>Connect wallet</Button>
-          <Button>userImg</Button>
-        </Button.Group>
-      </div>
-      <Button>Cart</Button>
-    </header>
-  );
+
+    const [userState, setUserState] = useState(null)
+    let walletButton ='';
+
+    if(userState !== null){
+        walletButton = <ConnectedWallet props={userState[1]}/>
+    }else{
+        walletButton = <Login setUserState={setUserState}/>
+    }
+    useEffect(()=>{
+        if(userState !== null){
+            walletButton = <ConnectedWallet props={userState[1]}/>
+        }else{
+            walletButton = <Login setUserState={setUserState}/>
+        }
+    },[userState])
+
+
+
+    return(
+        <header>
+
+                <div className="btnMenu">
+                    <button>
+                        <img className="imgMenu" alt="Menu Icon" src="img/iconMenu.png"/>
+                    </button>
+                </div>
+                <div className="linkToMain">
+                    <a href="/">
+                        <div className="imgLogo"><img alt="OpenSea Logo" src="img/opensea-logo.svg"/>
+                        </div>
+                    </a>
+                </div>
+                <div className="inputSearch">
+                    <Input type="text" placeholder="Search items, collections, and accounts">
+
+                    </Input>
+                </div>
+            <div className="btnUser">
+                <Button.Group>
+                    {walletButton}
+                        <div className="ui compact menu">
+                            <div className="ui item simple dropdown" tabIndex="0">
+                                User
+                                <div className="menu transition">
+                                    <div aria-selected="true" className="item">
+                                        <span className="text">Profile</span>
+                                    </div>
+                                    <div aria-selected="false" className="item">
+                                        <span className="text">NFT Colletction</span>
+                                    </div>
+                                    <div  aria-selected="false" className="item">
+                                        <a href="/account">
+                                            <span className="text" >Create Account</span>
+                                        </a>
+                                    </div>
+                                    <div  aria-selected="false" className="item">
+                                        <span className="text">Create NFT</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </Button.Group>
+            </div>
+            <Button>Cart</Button>
+        </header>
+
+    )
 }
 
-export default Header;
+function ConnectedWallet(props){
+    const val = Object.values(props);
+    // eslint-disable-next-line react/prop-types
+    return <Button>{val.toString()} ETH</Button>
+}
+
+export default  Header;

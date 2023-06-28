@@ -12,12 +12,14 @@ import NFTMintPage from "./pages/NFTMintPage";
 import UserPage from "./pages/UserPage";
 
 //Components
-// import Header from "./componenets/Header";
-// import Footer from "./componenets/Footer";
+import CreateAccount from "./pages/CreateAccount";
+import Header from "./componenets/Header";
+import Footer from "./componenets/Footer";
 
 function App() {
   return (
     <BrowserRouter>
+      <Header/>
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/userpage" element={<UserPage />} />
@@ -27,7 +29,9 @@ function App() {
           element={<NFTDetailPage />}
         />
         <Route path="/mint" element={<NFTMintPage />} />
+          <Route path="/account" element={<CreateAccount/>} />
       </Routes>
+      <Footer/>
     </BrowserRouter>
   );
 }

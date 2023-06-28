@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {
-  Header,
+  Header as H,
   Grid,
   Form,
   Segment,
@@ -12,6 +12,8 @@ import {
   Divider,
   Radio,
 } from "semantic-ui-react";
+import Footer from "../componenets/Footer";
+import Header from "../componenets/Header";
 
 export default function NFTMintPage() {
   const [open1, setOpen1] = useState(false);
@@ -30,24 +32,25 @@ export default function NFTMintPage() {
 
   return (
     <div>
+      <Header />
       <Grid
         centered
         style={{ width: "646px", margin: "0 auto", padding: "2rem" }}
       >
         <Grid.Column>
-          <Header as="h1">Create New Item</Header>
+          <H as="h1">Create New Item</H>
           <Form>
             <p>* Required Fields</p>
             <Form.Field>
-              <Header>Image, Video, Audio, or 3D Model *</Header>
+              <H>Image, Video, Audio, or 3D Model *</H>
               <p>
                 File types supported: JPG, PNG, GIF, SVG, MP4, WEBM, MP3, WAV,
                 OGG, GLB, GLTF. Max size: 100MB
               </p>
               <Segment placeholder>
-                <Header icon>
+                <H icon>
                   <Icon name="file image outline"></Icon>
-                </Header>
+                </H>
                 <Button primary>Add File</Button>
               </Segment>
             </Form.Field>
@@ -292,6 +295,7 @@ export default function NFTMintPage() {
           </Button>
         </Grid.Column>
       </Grid>
+      <Footer />
     </div>
   );
 }

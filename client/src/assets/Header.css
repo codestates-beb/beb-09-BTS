@@ -1,32 +1,31 @@
-header{
-    display: grid;
-    justify-content: space-between;
-    align-items: center;
-    grid-template-columns: 1fr 1fr 8fr 3fr 1fr;
+header {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 2fr 7fr 3fr 1fr;
+  margin: 0.4rem 0;
 }
 
-.btnMenu{
-    display: inline-block;
+.btnMenu {
+  display: inline-block;
 }
 
-.linkToMain{
-
-    display: flex;
+.linkToMain {
+  display: flex;
 }
 
-.inputSearch{
-    display: inline-block;
+.inputSearch {
+  display: inline-block;
 }
 
-.btnUser{
-    display: inline-block;
+.btnUser {
+  display: inline-block;
 }
 
-.imgLogo{
-    width:40px;
+.imgLogo {
+  width: 40px;
 }
 
-.imgMenu{
-    width:40px;
-    object-fit: cover;
+.imgMenu {
+  width: 40px;
+  object-fit: cover;
 }

@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import ScrollItemList from "../componenets/ScrollItemList";
-import Footer from "../componenets/Footer";
-import Header from "../componenets/Header";
+// import Footer from "../componenets/Footer";
+// import Header from "../componenets/Header";
 // import { Container } from "semantic-ui-react";
 
 import etherscan_logo from "../assets/etherscan-logo-circle.svg";
@@ -12,7 +12,6 @@ export default function NFTCollectionPage() {
 
   return (
     <div>
-      <Header />
       <div style={{ margin: "1rem 4rem" }}>
         <div style={{ display: "flex" }}>
           <h1>{name}</h1>
@@ -48,7 +47,6 @@ export default function NFTCollectionPage() {
         </div>
         <ScrollItemList />
       </div>
-      <Footer />
     </div>
   );
 }

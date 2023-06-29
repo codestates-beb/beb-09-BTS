@@ -7,7 +7,7 @@ import "./App.css";
 import MainPage from "./pages/MainPage";
 import NFTCollectionPage from "./pages/NFTCollectionPage";
 import NFTDetailPage from "./pages/NFTDetailPage";
-import NFTMintPage from "./pages/NFTMintPage";
+import NFTMintPage from "./pages/NFTCreatePage";
 //import NotFound from "./pages/NotFound";
 import UserPage from "./pages/UserPage";
 
@@ -19,7 +19,7 @@ import Footer from "./componenets/Footer";
 function App() {
   return (
     <BrowserRouter>
-      <Header/>
+      <Header />
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/userpage" element={<UserPage />} />
@@ -28,10 +28,10 @@ function App() {
           path="/collection/:name/detail/:id"
           element={<NFTDetailPage />}
         />
-        <Route path="/mint" element={<NFTMintPage />} />
-          <Route path="/account" element={<CreateAccount/>} />
+        <Route path="/create" element={<NFTMintPage />} />
+        <Route path="/account" element={<CreateAccount />} />
       </Routes>
-      <Footer/>
+      <Footer />
     </BrowserRouter>
   );
 }

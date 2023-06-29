@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "semantic-ui-css/semantic.min.css";
 import "./App.css";
+import axios from "axios";
 
 //Pages
 import MainPage from "./pages/MainPage";
@@ -17,13 +18,26 @@ import Header from "./componenets/Header";
 import Footer from "./componenets/Footer";
 
 function App() {
+  const [collection, setCollection] = useState([]); // eslint-disable-line no-unused-vars
+
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: "http://localhost:8080/collections",
+    }).then((res) => setCollection([...res.data]));
+    // console.log(collection[0].name);
+  }, []);
+
   return (
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<MainPage />} />
+        <Route path="/" element={<MainPage collection={collection} />} />
         <Route path="/userpage" element={<UserPage />} />
-        <Route path="/collection/:name" element={<NFTCollectionPage />} />
+        <Route
+          path="/collection/:name"
+          element={<NFTCollectionPage collection={collection} />}
+        />
         <Route
           path="/collection/:name/detail/:id"
           element={<NFTDetailPage />}

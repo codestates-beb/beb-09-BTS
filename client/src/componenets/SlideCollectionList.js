@@ -1,13 +1,13 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useRef, useEffect, useState } from "react";
 import CollectionList from "./CollectionList";
 import { register } from "swiper/element/bundle";
-import axios from "axios";
 
 register();
 
-function SlideCollectionList() {
+function SlideCollectionList({ collection }) {
   const swiperElRef = useRef(null);
-  const [collection, setCollection] = useState([]); // eslint-disable-line no-unused-vars
 
   useEffect(() => {
     // listen for Swiper events using addEventListener
@@ -22,14 +22,6 @@ function SlideCollectionList() {
     });
   }, []);
 
-  useEffect(() => {
-    axios({
-      method: "get",
-      url: "http://localhost:8080/collections",
-    }).then((res) => setCollection([...res.data]));
-    console.log(collection[0].name);
-  }, []);
-
   return (
     <div>
       <swiper-container
@@ -40,21 +32,14 @@ function SlideCollectionList() {
         mousewheel-force-to-axis="true"
         mousewheel-sensitivity="50"
       >
-        <swiper-slide style={{ width: "320px" }}>
-          <CollectionList />
-        </swiper-slide>
-        <swiper-slide style={{ width: "320px" }}>
-          <CollectionList />
-        </swiper-slide>
-        <swiper-slide style={{ width: "320px" }}>
-          <CollectionList />
-        </swiper-slide>
-        <swiper-slide style={{ width: "320px" }}>
-          <CollectionList />
-        </swiper-slide>
-        <swiper-slide style={{ width: "320px" }}>
-          <CollectionList />
-        </swiper-slide>
+        {collection.map((el) => {
+          console.log(el.name);
+          return (
+            <swiper-slide key={el.name} style={{ width: "320px" }}>
+              <CollectionList name={el.name} />
+            </swiper-slide>
+          );
+        })}
       </swiper-container>
     </div>
   );

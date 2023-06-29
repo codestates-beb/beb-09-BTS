@@ -1,23 +1,23 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import { Link } from "react-router-dom";
 import { Card, Image } from "semantic-ui-react";
 import logo from "../logo.svg";
 
-// eslint-disable-next-line no-unused-vars
-function CollectionList(props) {
-  const name = "BTS";
-
+function CollectionList({ name }) {
+  // const name = "BTS";
+  console.log(name);
   return (
     <div>
       {/* 
         특정 collection을 클릭하면 특정한 아이디의 콜렉션 페이지로 넘어간다!
-        /collection/:id
+        /collection/:name
       */}
       <Link to={`/collection/${name}`}>
         <Card style={{ margin: "1rem" }}>
           <Image src={logo}></Image>
           <Card.Content>
-            <Card.Header>Hello</Card.Header>
+            <Card.Header>{name}</Card.Header>
             <div style={{ display: "flex" }}>
               <div style={{ flex: "1 1 0px" }}>
                 <Card.Description>Floor</Card.Description>

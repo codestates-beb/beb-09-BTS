@@ -18,7 +18,7 @@ export default function CreateAccount() {
     //const data="test";
     axios
       .post("http://localhost:8080/users", {
-        address: "0xAdeb833eee668e50761B4BC8b3Ef476Dc2C86946",
+        address: "0x236eed76F276A473E96239CEfd42A353A437a0e9",
       })
       .then((response) => {
         //response
@@ -72,12 +72,14 @@ export default function CreateAccount() {
 
   function insertItem() {
     const data = {
-      contractAddress: "total",
-      ownerAddress: "ddd",
-      name: "test",
+      tokenId: "2",
+      address: "0x236eed76F276A473E96239CEfd42A353A437a0e9",
+      description: "",
+      ipfs: "ipfs://QmcQcmHgoCWKbYtW8V8HJP4Y6w9mzyoF62dixr6RB63K36/2",
+      name: "Cat Collection",
     };
     axios
-      .post("http://localhost:8080/collections", {
+      .post("http://localhost:8080/items", {
         data,
       })
       .then((response) => {

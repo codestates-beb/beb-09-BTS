@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { Card, Image } from "semantic-ui-react";
 import logo from "../logo.svg";
 
-function CollectionList() {
+// eslint-disable-next-line no-unused-vars
+function CollectionList(props) {
   const name = "BTS";
 
   return (

@@ -13,7 +13,7 @@ import {
 import mockImage from "../logo.svg";
 import SlideItemList from "../componenets/SlideItemList";
 // import Footer from "../componenets/Footer";
-import Header from "../componenets/Header";
+// import Header from "../componenets/Header";
 
 export default function NFTDetailPage() {
   const { id, name } = useParams();
@@ -35,7 +35,6 @@ export default function NFTDetailPage() {
 
   return (
     <div>
-      <Header />
       <div style={{ margin: "1rem 4rem" }}>
         <Grid textAlign="left" style={{ height: "100vh" }}>
           <Grid.Row columns={2}>

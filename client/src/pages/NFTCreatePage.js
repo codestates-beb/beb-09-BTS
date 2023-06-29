@@ -12,8 +12,8 @@ import {
   Divider,
   Radio,
 } from "semantic-ui-react";
-import Footer from "../componenets/Footer";
-import Header from "../componenets/Header";
+// import Footer from "../componenets/Footer";
+// import Header from "../componenets/Header";
 
 export default function NFTMintPage() {
   const [open1, setOpen1] = useState(false);
@@ -32,7 +32,6 @@ export default function NFTMintPage() {
 
   return (
     <div>
-      <Header />
       <Grid
         centered
         style={{ width: "646px", margin: "0 auto", padding: "2rem" }}
@@ -295,7 +294,6 @@ export default function NFTMintPage() {
           </Button>
         </Grid.Column>
       </Grid>
-      <Footer />
     </div>
   );
 }

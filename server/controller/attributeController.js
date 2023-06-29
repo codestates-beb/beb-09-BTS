@@ -16,8 +16,8 @@ exports.findById = function (req,res){
     })
 }
 
-exports.countItem = function (req,res){
-    Attribute.countToken(function (err,count){
+exports.countAttribute = function (req,res){
+    Attribute.countAttribute(function (err,count){
         if(err) res.send(err);
         res.send(count);
     })

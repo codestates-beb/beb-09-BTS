@@ -4,7 +4,7 @@ var itemsController = require('../controller/itemController')
 
 /* GET users listing. */
 router.get('/',itemsController.findAll);
-router.get('/item',itemsController.countItem);
+router.get('/count',itemsController.countItem);
 /* POST users listing. */
 router.post('/', itemsController.insertItem);
 

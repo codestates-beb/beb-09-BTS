@@ -4,7 +4,7 @@ var attributesController = require('../controller/attributeController')
 
 /* GET users listing. */
 router.get('/',attributesController.findAll);
-router.get('/attribute',attributesController.countItem);
+router.get('/count',attributesController.countAttribute);
 router.get('/:id',attributesController.findById);
 /* POST users listing. */
 router.post('/', attributesController.insertItem);

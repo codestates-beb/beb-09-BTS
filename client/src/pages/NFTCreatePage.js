@@ -1,3 +1,4 @@
+import "../assets/NFTCreatePage.css";
 import React, { useState } from "react";
 import {
   Header as H,
@@ -21,6 +22,17 @@ export default function NFTMintPage() {
   const [open3, setOpen3] = useState(false);
   const [checkUnlockable, setCheckUnlockable] = useState(false);
   const [inputSupply, setInputSupply] = useState(1);
+  const [selectedFile, setSelectedFile] = useState(null); // eslint-disable-line no-unused-vars
+  const [fileName, setFileName] = useState(null); // eslint-disable-line no-unused-vars
+
+  const categoryOptions =[
+    {key:1, text:'Art', value:1},
+    {key:2, text:'Gaming', value:2},
+    {key:3, text:'Memberships', value:3},
+    {key:4, text:'PFPs', value:4},
+    {key:5, text:'Photography', value:5},
+    {key:6, text:'Music', value:6},
+  ]
 
   const handleRadioClick = () => {
     if (checkUnlockable === false) {
@@ -29,6 +41,34 @@ export default function NFTMintPage() {
       setCheckUnlockable(false);
     }
   };
+
+  const fileInput = React.useRef(null);
+
+  const handleClickAdd = () =>{
+    fileInput.current.click();
+  }
+
+  const handleAddChange=(e)=>{
+    const fileUploaded = e.target.files[0];
+
+    if(fileUploaded.type ==="image/png" || fileUploaded.type ==="image/jpg" || fileUploaded.type ==="image/jpeg"){
+      setSelectedFile(fileUploaded);
+      setFileName(fileUploaded.name);
+      console.log(fileUploaded);
+
+      const imgEL = document.querySelector('.imgBox');
+      const reader = new FileReader();
+
+      reader.onload = () =>
+          (imgEL.style.backgroundImage = `urL(${reader.result})`);
+
+      reader.readAsDataURL(fileUploaded);
+    }else{
+      alert("File Format must be [PNG],[JPG],[JPEG]");
+      return;
+    }
+  }
+
 
   return (
     <div>
@@ -47,11 +87,13 @@ export default function NFTMintPage() {
                 OGG, GLB, GLTF. Max size: 100MB
               </p>
               <Segment placeholder>
-                <H icon>
-                  <Icon name="file image outline"></Icon>
-                </H>
-                <Button primary>Add File</Button>
+                <div className="imgBox" ></div>
               </Segment>
+              <Button primary onClick={handleClickAdd}>Add File</Button>
+              <input type ="file"
+                     ref={fileInput}
+                     onChange={handleAddChange}
+                     style={{display:"none"}}/>
             </Form.Field>
             <Form.Field
               control={Input}
@@ -87,6 +129,18 @@ export default function NFTMintPage() {
                 selection
                 placeholder="Select collection"
               ></Dropdown>
+            </Form.Field>
+            <Form.Field>
+              <label>Category</label>
+              <p>This is the collection category.</p>
+              <Dropdown
+                  search
+                  fluid
+                  options={categoryOptions}
+                  selection
+                  placeholder="Select category"
+              >
+              </Dropdown>
             </Form.Field>
             <Form.Field>
               <div style={{ display: "flex" }}>

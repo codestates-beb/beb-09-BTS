@@ -5,7 +5,7 @@ import { Button } from "semantic-ui-react";
 export default function CreateAccount() {
   function findUsers() {
     axios
-      .get("http://localhost:8080/users")
+      .get("http://localhost:3000/users")
       .then((response) => {
         console.log("sucs", response.data);
       })
@@ -17,7 +17,7 @@ export default function CreateAccount() {
   function insertUser() {
     //const data="test";
     axios
-      .post("http://localhost:8080/users", {
+      .post("http://localhost:3000/users", {
         address: "total",
       })
       .then((response) => {
@@ -31,7 +31,7 @@ export default function CreateAccount() {
 
   function findCollections() {
     axios
-      .get("http://localhost:8080/collections")
+      .get("http://localhost:3000/collections")
       .then((response) => {
         console.log("sucs", response.data);
       })
@@ -42,7 +42,7 @@ export default function CreateAccount() {
 
   function countCollections() {
     axios
-      .get("http://localhost:8080/collections/count")
+      .get("http://localhost:3000/collections/count")
       .then((response) => {
         console.log("sucs", response.data);
       })
@@ -55,9 +55,10 @@ export default function CreateAccount() {
     const data = {
       contractAddress: "total",
       ownerAddress: "ddd",
+      name :"test"
     };
     axios
-      .post("http://localhost:8080/collections", {
+      .post("http://localhost:3000/collections", {
         data,
       })
       .then((response) => {
@@ -69,12 +70,45 @@ export default function CreateAccount() {
       });
   }
 
+  function insertItem() {
+    const data = {
+      contractAddress: "total",
+      ownerAddress: "ddd",
+      name :"test"
+    };
+    axios
+        .post("http://localhost:3000/collections", {
+          data,
+        })
+        .then((response) => {
+          //response
+          console.log("sucs", response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  }
+
   return (
     <div className="button">
       <div>
         <h1>Account</h1>
         <Button onClick={findUsers}>findUsers</Button>
         <Button onClick={insertUser}>insertUser</Button>
+      </div>
+
+      <div>
+        <h1>Collection</h1>
+        <Button onClick={findCollections}>findCollections</Button>
+        <Button onClick={countCollections}>countCollections</Button>
+        <Button onClick={insertCollection}>insertCollection</Button>
+      </div>
+
+      <div>
+        <h1>Item</h1>
+        <Button onClick={insertItem}>insertItem</Button>
+        <Button onClick={countCollections}>countCollections</Button>
+        <Button onClick={insertCollection}>insertCollection</Button>
       </div>
 
       <div>

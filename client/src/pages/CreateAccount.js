@@ -53,7 +53,7 @@ export default function CreateAccount() {
 
   function insertCollection() {
     const data = {
-      contractAddress: "total",
+      address: "total",
       ownerAddress: "ddd",
       name :"test"
     };

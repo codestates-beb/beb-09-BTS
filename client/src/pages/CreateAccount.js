@@ -70,12 +70,45 @@ export default function CreateAccount() {
       });
   }
 
+  function insertItem() {
+    const data = {
+      contractAddress: "total",
+      ownerAddress: "ddd",
+      name: "test",
+    };
+    axios
+      .post("http://localhost:8080/collections", {
+        data,
+      })
+      .then((response) => {
+        //response
+        console.log("sucs", response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   return (
     <div className="button">
       <div>
         <h1>Account</h1>
         <Button onClick={findUsers}>findUsers</Button>
         <Button onClick={insertUser}>insertUser</Button>
+      </div>
+
+      <div>
+        <h1>Collection</h1>
+        <Button onClick={findCollections}>findCollections</Button>
+        <Button onClick={countCollections}>countCollections</Button>
+        <Button onClick={insertCollection}>insertCollection</Button>
+      </div>
+
+      <div>
+        <h1>Item</h1>
+        <Button onClick={insertItem}>insertItem</Button>
+        <Button onClick={countCollections}>countCollections</Button>
+        <Button onClick={insertCollection}>insertCollection</Button>
       </div>
 
       <div>

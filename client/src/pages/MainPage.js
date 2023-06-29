@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react"; // eslint-disable-line no-unused-vars
 import SlideCollectionList from "../componenets/SlideCollectionList";
 import { Header as H, Form, Menu } from "semantic-ui-react";
 

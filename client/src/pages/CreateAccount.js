@@ -18,7 +18,7 @@ export default function CreateAccount() {
     //const data="test";
     axios
       .post("http://localhost:8080/users", {
-        address: "total",
+        address: "0xAdeb833eee668e50761B4BC8b3Ef476Dc2C86946",
       })
       .then((response) => {
         //response
@@ -53,8 +53,9 @@ export default function CreateAccount() {
 
   function insertCollection() {
     const data = {
-      contractAddress: "total",
-      ownerAddress: "ddd",
+      contractAddress: "0x01C3b0Af86382cb3d9D2D6D4329536447Fb4c1D5",
+      ownerAddress: "0xAdeb833eee668e50761B4BC8b3Ef476Dc2C86946",
+      name: "Cat Collection",
     };
     axios
       .post("http://localhost:8080/collections", {

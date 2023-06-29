@@ -7,7 +7,7 @@ import "./App.css";
 import MainPage from "./pages/MainPage";
 import NFTCollectionPage from "./pages/NFTCollectionPage";
 import NFTDetailPage from "./pages/NFTDetailPage";
-import NFTMintPage from "./pages/NFTCreatePage";
+import NFTCreatePage from "./pages/NFTCreatePage";
 //import NotFound from "./pages/NotFound";
 import UserPage from "./pages/UserPage";
 
@@ -28,7 +28,7 @@ function App() {
           path="/collection/:name/detail/:id"
           element={<NFTDetailPage />}
         />
-        <Route path="/create" element={<NFTMintPage />} />
+        <Route path="/create" element={<NFTCreatePage />} />
         <Route path="/account" element={<CreateAccount />} />
       </Routes>
       <Footer />

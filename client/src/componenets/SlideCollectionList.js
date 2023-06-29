@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import CollectionList from "./CollectionList";
-import { useRef, useEffect } from "react";
 import { register } from "swiper/element/bundle";
+import axios from "axios";
 
 register();
 
 function SlideCollectionList() {
   const swiperElRef = useRef(null);
+  const [collection, setCollection] = useState([]); // eslint-disable-line no-unused-vars
 
   useEffect(() => {
     // listen for Swiper events using addEventListener
@@ -19,6 +20,14 @@ function SlideCollectionList() {
     swiperElRef.current.addEventListener("slidechange", () => {
       console.log("slide changed");
     });
+  }, []);
+
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: "http://localhost:8080/collections",
+    }).then((res) => setCollection([...res.data]));
+    console.log(collection[0].name);
   }, []);
 
   return (

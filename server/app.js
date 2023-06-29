@@ -11,6 +11,9 @@ let corsOptions={
 };
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var collectionsRouter = require('./routes/collections');
+var itemsRouter = require('./routes/items');
+var attributesRouter = require('./routes/attributes');
 
 var app = express();
 // var dbConfig = require(__dirname + '/config/db.js');
@@ -27,8 +30,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// route to '/'
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/collections', collectionsRouter);
+app.use('/items', itemsRouter);
+app.use('/attributes', attributesRouter);
 
 
 // catch 404 and forward to error handler

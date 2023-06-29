@@ -14,6 +14,8 @@ var usersRouter = require('./routes/users');
 var collectionsRouter = require('./routes/collections');
 var itemsRouter = require('./routes/items');
 var attributesRouter = require('./routes/attributes');
+var pinatasRouter = require('./routes/pinatas');
+var fileUploadRouter = require('./routes/fileUpload');
 
 var app = express();
 // var dbConfig = require(__dirname + '/config/db.js');
@@ -36,7 +38,8 @@ app.use('/users', usersRouter);
 app.use('/collections', collectionsRouter);
 app.use('/items', itemsRouter);
 app.use('/attributes', attributesRouter);
-
+app.use('/pinatas', pinatasRouter);
+app.use('/upload', fileUploadRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

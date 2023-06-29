@@ -13,6 +13,7 @@ import {
   Divider,
   Radio,
 } from "semantic-ui-react";
+import axios from "axios";
 // import Footer from "../componenets/Footer";
 // import Header from "../componenets/Header";
 
@@ -68,6 +69,45 @@ export default function NFTMintPage() {
       return;
     }
   }
+
+  const submitMetaData=()=>{
+    const formdata = new FormData();
+    formdata.append('file',selectedFile);
+
+    axios
+        .post("http://localhost:3000/upload",
+          formdata,
+        )
+        .then((response) => {
+          //response
+          console.log("sucs", response.data);
+
+          const data={
+            address:"asdasd",
+            name:"test",
+            desc:"test",
+            category:"test",
+            img:'ipfs://'+response.data,
+          };
+
+          axios
+              .post("http://localhost:3000/pinatas", {
+                data,
+              })
+              .then((response) => {
+                //response
+                console.log("sucs", response.data);
+
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  };
 
 
   return (
@@ -343,7 +383,7 @@ export default function NFTMintPage() {
             </Form.Field>
           </Form>
           <Divider />
-          <Button primary size="huge" style={{ borderRadius: "1rem" }}>
+          <Button onClick={submitMetaData} primary size="huge" style={{ borderRadius: "1rem" }}>
             Create
           </Button>
         </Grid.Column>

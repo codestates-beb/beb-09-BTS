@@ -4,11 +4,13 @@ create table users(
 
 create table items(
     tokenId varchar(20) NOT NULL primary key,
-    address varchar(50) NOT NULL,
+    collectionAddress varchar(50) NOT NULL,
+    ownerAddress varchar(50) NOT NULL,
     description varchar(50),
     ipfs varchar(100) NOT NULL,
     name varchar(20) NOT NULL ,
-    FOREIGN KEY(address) REFERENCES users(address)
+    FOREIGN KEY(ownerAddress) REFERENCES users(address),
+    FOREIGN KEY(collectionAddress) REFERENCES collections(address)
 );
 
 create table attributes(
@@ -19,7 +21,7 @@ create table attributes(
 );
 
 create table collections(
-    contractAddress varchar(50) not null,
+    address varchar(50) not null PRIMARY KEY ,
     ownerAddress varchar(50) not null,
     name varchar(20) not null,
     foreign key(ownerAddress) references users(address)

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-no-target-blank */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ScrollItemList from "../componenets/ScrollItemList";
 import axios from "axios";
@@ -14,12 +14,25 @@ import etherscan_logo from "../assets/etherscan-logo-circle.svg";
 export default function NFTCollectionPage({ collection }) {
   const { name } = useParams();
   const [collectionAddr, setCollectionAddr] = useState("");
+  const [items, setItems] = useState([]);
 
   axios({
     method: "get",
     url: `http://localhost:8080/collections/${name}`,
-  }).then((res) => console.log(res.data));
+  }).then((res) => setCollectionAddr(res.data[0].address));
   // setCollectionAddr(response.data.contractAddress)
+
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: "http://localhost:8080/items",
+    }).then((res) => {
+      setItems(res.data);
+      console.log(res.data);
+    });
+  }, []);
+
+  // console.log(items);
 
   return (
     <div>
@@ -28,7 +41,7 @@ export default function NFTCollectionPage({ collection }) {
           <h1>{name}</h1>
           <div style={{ display: "flex" }}>
             <a
-              href={`https://sepolia.etherscan.io/address/${collection[0].contractAddress}`}
+              href={`https://sepolia.etherscan.io/address/${collectionAddr}`}
               target="_blank"
             >
               <img
@@ -56,7 +69,7 @@ export default function NFTCollectionPage({ collection }) {
             <div style={{ color: "grey" }}>floor price</div>
           </div>
         </div>
-        <ScrollItemList />
+        <ScrollItemList items={items} />
       </div>
     </div>
   );

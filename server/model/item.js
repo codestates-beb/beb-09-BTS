@@ -2,7 +2,8 @@ const mysql = require("../config/db");
 
 let Item = function (item) {
   this.tokenId = item.tokenId;
-  this.address = item.address;
+  this.collectionAddress = item.collectionAddress;
+  this.ownerAddress = item.ownerAddress;
   this.description = item.description;
   this.ipfs = item.ipfs;
   this.name = item.name;

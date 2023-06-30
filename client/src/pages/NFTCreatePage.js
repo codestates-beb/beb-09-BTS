@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import "../assets/NFTCreatePage.css";
 import React, { useState } from "react";
 import {
@@ -17,7 +19,7 @@ import axios from "axios";
 // import Footer from "../componenets/Footer";
 // import Header from "../componenets/Header";
 
-export default function NFTMintPage() {
+export default function NFTMintPage({ create }) {
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [open3, setOpen3] = useState(false);
@@ -26,14 +28,14 @@ export default function NFTMintPage() {
   const [selectedFile, setSelectedFile] = useState(null); // eslint-disable-line no-unused-vars
   const [fileName, setFileName] = useState(null); // eslint-disable-line no-unused-vars
 
-  const categoryOptions =[
-    {key:1, text:'Art', value:1},
-    {key:2, text:'Gaming', value:2},
-    {key:3, text:'Memberships', value:3},
-    {key:4, text:'PFPs', value:4},
-    {key:5, text:'Photography', value:5},
-    {key:6, text:'Music', value:6},
-  ]
+  const categoryOptions = [
+    { key: 1, text: "Art", value: 1 },
+    { key: 2, text: "Gaming", value: 2 },
+    { key: 3, text: "Memberships", value: 3 },
+    { key: 4, text: "PFPs", value: 4 },
+    { key: 5, text: "Photography", value: 5 },
+    { key: 6, text: "Music", value: 6 },
+  ];
 
   const handleRadioClick = () => {
     if (checkUnlockable === false) {
@@ -45,70 +47,70 @@ export default function NFTMintPage() {
 
   const fileInput = React.useRef(null);
 
-  const handleClickAdd = () =>{
+  const handleClickAdd = () => {
     fileInput.current.click();
-  }
+  };
 
-  const handleAddChange=(e)=>{
+  const handleAddChange = (e) => {
     const fileUploaded = e.target.files[0];
 
-    if(fileUploaded.type ==="image/png" || fileUploaded.type ==="image/jpg" || fileUploaded.type ==="image/jpeg"){
+    if (
+      fileUploaded.type === "image/png" ||
+      fileUploaded.type === "image/jpg" ||
+      fileUploaded.type === "image/jpeg"
+    ) {
       setSelectedFile(fileUploaded);
       setFileName(fileUploaded.name);
       console.log(fileUploaded);
 
-      const imgEL = document.querySelector('.imgBox');
+      const imgEL = document.querySelector(".imgBox");
       const reader = new FileReader();
 
       reader.onload = () =>
-          (imgEL.style.backgroundImage = `urL(${reader.result})`);
+        (imgEL.style.backgroundImage = `urL(${reader.result})`);
 
       reader.readAsDataURL(fileUploaded);
-    }else{
+    } else {
       alert("File Format must be [PNG],[JPG],[JPEG]");
       return;
     }
-  }
-
-  const submitMetaData=()=>{
-    const formdata = new FormData();
-    formdata.append('file',selectedFile);
-
-    axios
-        .post("http://localhost:3000/upload",
-          formdata,
-        )
-        .then((response) => {
-          //response
-          console.log("sucs", response.data);
-
-          const data={
-            address:"asdasd",
-            name:"test",
-            desc:"test",
-            category:"test",
-            img:'ipfs://'+response.data,
-          };
-
-          axios
-              .post("http://localhost:3000/pinatas", {
-                data,
-              })
-              .then((response) => {
-                //response
-                console.log("sucs", response.data);
-
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-
-        })
-        .catch((error) => {
-          console.log(error);
-        });
   };
 
+  const submitMetaData = () => {
+    const formdata = new FormData();
+    formdata.append("file", selectedFile);
+
+    axios
+      .post("http://localhost:8080/upload", formdata)
+      .then((response) => {
+        //response
+        console.log("sucs", response.data);
+
+        const data = {
+          address: "asdasd",
+          name: "test",
+          desc: "test",
+          category: "test",
+          img: "ipfs://" + response.data,
+        };
+
+        axios
+          .post("http://localhost:8080/pinatas", {
+            data,
+          })
+          .then((response) => {
+            //response
+            console.log("sucs", response.data);
+            create();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div>
@@ -127,13 +129,17 @@ export default function NFTMintPage() {
                 OGG, GLB, GLTF. Max size: 100MB
               </p>
               <Segment placeholder>
-                <div className="imgBox" ></div>
+                <div className="imgBox"></div>
               </Segment>
-              <Button primary onClick={handleClickAdd}>Add File</Button>
-              <input type ="file"
-                     ref={fileInput}
-                     onChange={handleAddChange}
-                     style={{display:"none"}}/>
+              <Button primary onClick={handleClickAdd}>
+                Add File
+              </Button>
+              <input
+                type="file"
+                ref={fileInput}
+                onChange={handleAddChange}
+                style={{ display: "none" }}
+              />
             </Form.Field>
             <Form.Field
               control={Input}
@@ -174,13 +180,12 @@ export default function NFTMintPage() {
               <label>Category</label>
               <p>This is the collection category.</p>
               <Dropdown
-                  search
-                  fluid
-                  options={categoryOptions}
-                  selection
-                  placeholder="Select category"
-              >
-              </Dropdown>
+                search
+                fluid
+                options={categoryOptions}
+                selection
+                placeholder="Select category"
+              ></Dropdown>
             </Form.Field>
             <Form.Field>
               <div style={{ display: "flex" }}>
@@ -383,7 +388,12 @@ export default function NFTMintPage() {
             </Form.Field>
           </Form>
           <Divider />
-          <Button onClick={submitMetaData} primary size="huge" style={{ borderRadius: "1rem" }}>
+          <Button
+            onClick={submitMetaData}
+            primary
+            size="huge"
+            style={{ borderRadius: "1rem" }}
+          >
             Create
           </Button>
         </Grid.Column>

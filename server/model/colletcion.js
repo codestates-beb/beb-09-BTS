@@ -1,7 +1,7 @@
 const mysql = require("../config/db");
 
 let Collection = function (collection) {
-  this.contractAddress = collection.contractAddress;
+  this.address = collection.address;
   this.ownerAddress = collection.ownerAddress;
   this.name = collection.name;
 };

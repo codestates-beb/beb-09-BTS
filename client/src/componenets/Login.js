@@ -1,4 +1,6 @@
-import React, { useCallback, useState } from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import React, { useCallback, useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { Button } from "semantic-ui-react";
 
@@ -7,6 +9,10 @@ function Login(props) {
   const [signer, setSigner] = useState(undefined); // eslint-disable-line no-unused-vars
   const [walletAddress, setWalletAddress] = useState(undefined); // eslint-disable-line no-unused-vars
   const [currentBalance, setCurrentBalance] = useState(undefined); // eslint-disable-line no-unused-vars
+
+  useEffect(() => {
+    props.setCreateFn(create);
+  }, []);
 
   const connectWallet = useCallback(async () => {
     try {
@@ -55,6 +61,27 @@ function Login(props) {
     // 서명 저장
     setSigner(signer);
     return signer;
+  };
+
+  const create = async () => {
+    const _provider = await getProvider();
+    const _signer = await getSigner(_provider);
+    const address = await _signer.getAddress();
+    const cAdd = "0xAdeb833eee668e50761B4BC8b3Ef476Dc2C86946";
+
+    window.ethereum
+      .request({
+        method: "eth_sendTransaction",
+        params: [
+          {
+            to: cAdd,
+            from: address,
+            gas: "21000000000",
+          },
+        ],
+      })
+      .then((Hash) => console.log(Hash))
+      .catch((err) => console.log(err));
   };
 
   return (

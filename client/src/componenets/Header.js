@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../assets/Header.css";
@@ -5,7 +7,8 @@ import { Input } from "semantic-ui-react";
 import { Button } from "semantic-ui-react";
 import Login from "./Login";
 
-function Header() {
+function Header({ setCreate }) {
+  const [createFn, setCreateFn] = useState();
   const [userState, setUserState] = useState(null);
   const [search, setSearch] = useState(""); // eslint-disable-line no-unused-vars
   let walletButton = "";
@@ -13,15 +16,23 @@ function Header() {
   if (userState !== null) {
     walletButton = <ConnectedWallet props={userState[1]} />;
   } else {
-    walletButton = <Login setUserState={setUserState} />;
+    walletButton = (
+      <Login setUserState={setUserState} setCreateFn={setCreateFn} />
+    );
   }
   useEffect(() => {
     if (userState !== null) {
       walletButton = <ConnectedWallet props={userState[1]} />;
     } else {
-      walletButton = <Login setUserState={setUserState} />;
+      walletButton = (
+        <Login setUserState={setUserState} setCreateFn={setCreateFn} />
+      );
     }
   }, [userState]);
+
+  useEffect(() => {
+    setCreate(createFn);
+  }, [createFn]);
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -59,18 +70,22 @@ function Header() {
               User
               <div className="menu transition">
                 <div aria-selected="true" className="item">
-                  <span className="text">Profile</span>
+                  <Link to="userpage">
+                    <span className="text">Profile</span>
+                  </Link>
                 </div>
                 <div aria-selected="false" className="item">
                   <span className="text">NFT Colletction</span>
                 </div>
                 <div aria-selected="false" className="item">
-                  <a href="/account">
+                  <Link to="/account">
                     <span className="text">Create Account</span>
-                  </a>
+                  </Link>
                 </div>
                 <div aria-selected="false" className="item">
-                  <span className="text">Create NFT</span>
+                  <Link to="/create">
+                    <span className="text">Create NFT</span>
+                  </Link>
                 </div>
               </div>
             </div>

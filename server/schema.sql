@@ -3,28 +3,29 @@ CREATE TABLE users (
     PRIMARY KEY (address) -- Add primary key constraint
 );
 
-create table items(
-    tokenId varchar(20) NOT NULL primary key,
-    collectionAddress varchar(50) NOT NULL,
-    ownerAddress varchar(50) NOT NULL,
-    description varchar(50),
-    ipfs varchar(100) NOT NULL,
-    name varchar(20) NOT NULL ,
-    FOREIGN KEY(ownerAddress) REFERENCES users(address),
-    FOREIGN KEY(collectionAddress) REFERENCES collections(address)
+CREATE TABLE items (
+    tokenId VARCHAR(20) NOT NULL PRIMARY KEY,
+    collectionAddress VARCHAR(50) NOT NULL,
+    ownerAddress VARCHAR(50) NOT NULL,
+    description VARCHAR(50),
+    ipfs VARCHAR(100) NOT NULL,
+    name VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE attributes (
     tokenId VARCHAR(20) NOT NULL,
     traitType VARCHAR(20) NOT NULL,
     value VARCHAR(20) NOT NULL,
-    FOREIGN KEY (tokenId) REFERENCES items (tokenId) -- Reference the primary key column directly
+    FOREIGN KEY (tokenId) REFERENCES items (tokenId) -- Corrected foreign key constraint
 );
 
-create table collections(
-    address varchar(50) not null PRIMARY KEY ,
-    ownerAddress varchar(50) not null,
-    name varchar(20) not null,
-    foreign key(ownerAddress) references users(address)
-)
+CREATE TABLE collections (
+    address VARCHAR(50) NOT NULL PRIMARY KEY,
+    ownerAddress VARCHAR(50) NOT NULL,
+    name VARCHAR(20) NOT NULL,
+    FOREIGN KEY (ownerAddress) REFERENCES users (address) -- Added foreign key constraint
+);
+
+ALTER TABLE items ADD FOREIGN KEY (ownerAddress) REFERENCES users (address);
+ALTER TABLE items ADD FOREIGN KEY (collectionAddress) REFERENCES collections (address);
 

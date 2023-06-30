@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { Card, Image } from "semantic-ui-react";
 import logo from "../logo.svg";
 
-function ItemList() {
+function ItemList({ item, tokenId }) {
   const { name } = useParams();
   const id = 1;
 
@@ -17,7 +19,7 @@ function ItemList() {
         <Card style={{ margin: "1rem" }}>
           <Image src={logo}></Image>
           <Card.Content>
-            <Card.Header>Hello</Card.Header>
+            <Card.Header>{`${item} ${tokenId}`}</Card.Header>
             <Card.Description>10 ETH</Card.Description>
           </Card.Content>
           <Card.Content extra>Buy now</Card.Content>

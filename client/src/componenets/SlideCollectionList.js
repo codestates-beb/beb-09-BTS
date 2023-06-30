@@ -1,11 +1,12 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import React, { useRef, useEffect, useState } from "react";
 import CollectionList from "./CollectionList";
-import { useRef, useEffect } from "react";
 import { register } from "swiper/element/bundle";
 
 register();
 
-function SlideCollectionList() {
+function SlideCollectionList({ collection }) {
   const swiperElRef = useRef(null);
 
   useEffect(() => {
@@ -31,21 +32,14 @@ function SlideCollectionList() {
         mousewheel-force-to-axis="true"
         mousewheel-sensitivity="50"
       >
-        <swiper-slide style={{ width: "320px" }}>
-          <CollectionList />
-        </swiper-slide>
-        <swiper-slide style={{ width: "320px" }}>
-          <CollectionList />
-        </swiper-slide>
-        <swiper-slide style={{ width: "320px" }}>
-          <CollectionList />
-        </swiper-slide>
-        <swiper-slide style={{ width: "320px" }}>
-          <CollectionList />
-        </swiper-slide>
-        <swiper-slide style={{ width: "320px" }}>
-          <CollectionList />
-        </swiper-slide>
+        {collection.map((el) => {
+          console.log(el.name);
+          return (
+            <swiper-slide key={el.name} style={{ width: "320px" }}>
+              <CollectionList name={el.name} />
+            </swiper-slide>
+          );
+        })}
       </swiper-container>
     </div>
   );

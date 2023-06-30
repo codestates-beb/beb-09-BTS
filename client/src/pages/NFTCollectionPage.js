@@ -1,14 +1,38 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-no-target-blank */
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ScrollItemList from "../componenets/ScrollItemList";
+import axios from "axios";
 // import Footer from "../componenets/Footer";
 // import Header from "../componenets/Header";
 // import { Container } from "semantic-ui-react";
 
 import etherscan_logo from "../assets/etherscan-logo-circle.svg";
 
-export default function NFTCollectionPage() {
+export default function NFTCollectionPage({ collection }) {
   const { name } = useParams();
+  const [collectionAddr, setCollectionAddr] = useState("");
+  const [items, setItems] = useState([]);
+
+  axios({
+    method: "get",
+    url: `http://localhost:8080/collections/${name}`,
+  }).then((res) => setCollectionAddr(res.data[0].address));
+  // setCollectionAddr(response.data.contractAddress)
+
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: "http://localhost:8080/items",
+    }).then((res) => {
+      setItems(res.data);
+      console.log(res.data);
+    });
+  }, []);
+
+  // console.log(items);
 
   return (
     <div>
@@ -16,16 +40,16 @@ export default function NFTCollectionPage() {
         <div style={{ display: "flex" }}>
           <h1>{name}</h1>
           <div style={{ display: "flex" }}>
-            <img
-              src={etherscan_logo}
-              alt="etherscan_logo"
-              style={{ width: "1.5rem", margin: "0.5rem" }}
-            ></img>
-            <img
-              src={etherscan_logo}
-              alt="etherscan_logo"
-              style={{ width: "1.5rem", margin: "0.5rem" }}
-            ></img>
+            <a
+              href={`https://sepolia.etherscan.io/address/${collectionAddr}`}
+              target="_blank"
+            >
+              <img
+                src={etherscan_logo}
+                alt="etherscan_logo"
+                style={{ width: "1.5rem", margin: "0.5rem" }}
+              ></img>
+            </a>
           </div>
         </div>
         <div style={{ display: "flex" }}>
@@ -45,7 +69,7 @@ export default function NFTCollectionPage() {
             <div style={{ color: "grey" }}>floor price</div>
           </div>
         </div>
-        <ScrollItemList />
+        <ScrollItemList items={items} />
       </div>
     </div>
   );

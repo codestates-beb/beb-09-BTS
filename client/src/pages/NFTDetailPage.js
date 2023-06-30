@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/jsx-no-target-blank */
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   List,
@@ -12,12 +14,61 @@ import {
 } from "semantic-ui-react";
 import mockImage from "../logo.svg";
 import SlideItemList from "../componenets/SlideItemList";
+import axios from "axios";
 // import Footer from "../componenets/Footer";
 // import Header from "../componenets/Header";
 
 export default function NFTDetailPage() {
   const { id, name } = useParams();
   const [activeIndex, setActiveIndex] = useState([1, 5, 7, 8, 9]);
+  const [item, setItem] = useState({});
+  const [items, setItems] = useState([]);
+  const [metadata, setMetadata] = useState({
+    name: "",
+    attributes: [],
+    image: "",
+  });
+
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: "http://localhost:8080/items",
+    }).then((res) => {
+      // console.log(res.data);
+      // setItems(res.data);
+    });
+  });
+
+  useEffect(() => {
+    let metaImage;
+    let mockItem;
+
+    axios({
+      method: "get",
+      url: "http://localhost:8080/items",
+    })
+      .then((res) => {
+        console.log(res.data[id - 1]);
+        setItem(res.data[id - 1]);
+        mockItem = res.data[id - 1];
+      })
+      .then(() => {
+        if (mockItem !== undefined) {
+          axios({
+            method: "get",
+            url: `https://ipfs.io/ipfs${mockItem.ipfs.split(":/")[1]}`,
+          }).then((res) => {
+            setMetadata({
+              name: res.data.name,
+              attributes: res.data.attributes,
+              image: res.data.image,
+            });
+            console.log(res.data);
+            metaImage = res.data.image;
+          });
+        } else return;
+      });
+  }, []);
 
   const handleClick = (e, data) => {
     const index = data.index;
@@ -60,7 +111,7 @@ export default function NFTDetailPage() {
                 </Accordion.Title>
                 <Accordion.Content className="accordionContent" active={true}>
                   <p>
-                    By <b>Chris Park</b>
+                    By <b>{item.ownerAddress}</b>
                   </p>
                 </Accordion.Content>
                 <Accordion.Title
@@ -74,20 +125,31 @@ export default function NFTDetailPage() {
                   className="accordionContent"
                   active={activeIndex.includes(1)}
                 >
-                  <p>This is NFT traits</p>
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    {metadata.attributes.map((el) => {
+                      return (
+                        <div key={el.name}>
+                          <div>{el.trait_type}</div>
+                          <div>{el.value}</div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </Accordion.Content>
                 <Accordion.Title
                   active={activeIndex.includes(2)}
                   index={2}
                   onClick={(e, data) => handleClick(e, data)}
                 >
-                  About Blockchain Team Standard
+                  {`About ${item.name}`}
                 </Accordion.Title>
                 <Accordion.Content
                   active={activeIndex.includes(2)}
                   className="accordionContent"
                 >
-                  <p>This is About Blockchain Team Standard</p>
+                  <p>{`This is About ${item.name}`}</p>
                 </Accordion.Content>
                 <Accordion.Title
                   active={activeIndex.includes(3)}
@@ -100,13 +162,19 @@ export default function NFTDetailPage() {
                   active={activeIndex.includes(3)}
                   className="accordionContent"
                 >
-                  <p>This is Details of Blockchain Team Standard</p>
+                  <p>{`You can find more information`}</p>
+                  <a
+                    href="https://ipfs.io/ipfs/QmYpRNW4eQhxmvJWnACgQ3jooJKppa3uNQyDchmET82M9Z/1.jpg"
+                    target="_blank"
+                  >
+                    here
+                  </a>
                 </Accordion.Content>
               </Accordion>
             </Grid.Column>
             <Grid.Column width={9}>
               <div style={{ marginLeft: "1rem", display: "flex" }}>
-                <div style={{ flex: "10" }}>BTS</div>
+                <div style={{ flex: "10" }}>{name}</div>
                 <div style={{ flex: "1" }}>
                   <Icon name="share alternate"></Icon>
                 </div>
@@ -264,7 +332,7 @@ export default function NFTDetailPage() {
                   active={activeIndex.includes(9)}
                   className="accordionContent"
                 >
-                  <SlideItemList />
+                  <SlideItemList item={item} />
                   <Divider />
                   <div style={{ display: "flex", justifyContent: "center" }}>
                     <Link to={`/collection/${name}`}>

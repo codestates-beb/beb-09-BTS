@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import React, { useState, useEffect } from "react"; // eslint-disable-line no-unused-vars
 import SlideCollectionList from "../componenets/SlideCollectionList";
 import { Header as H, Form, Menu } from "semantic-ui-react";
 
-export default function MainPage() {
+export default function MainPage({ collection }) {
   const [activeItem, setActiveItem] = useState("All");
 
   return (
@@ -47,11 +49,11 @@ export default function MainPage() {
         </Menu>
         <Form style={{ margin: "2rem 0" }}>
           <H as="h2">Notable Collections</H>
-          <SlideCollectionList />
+          <SlideCollectionList collection={collection} />
         </Form>
         <Form>
           <H as="h2">Trending in Art</H>
-          <SlideCollectionList />
+          <SlideCollectionList collection={collection} />
         </Form>
       </div>
     </div>

@@ -3,13 +3,15 @@ CREATE TABLE users (
     PRIMARY KEY (address) -- Add primary key constraint
 );
 
-CREATE TABLE items (
-    tokenId VARCHAR(20) NOT NULL PRIMARY KEY,
-    address VARCHAR(50) NOT NULL,
-    description VARCHAR(50),
-    ipfs VARCHAR(100) NOT NULL,
-    name VARCHAR(20) NOT NULL,
-    FOREIGN KEY (address) REFERENCES users (address) -- Reference the primary key column directly
+create table items(
+    tokenId varchar(20) NOT NULL primary key,
+    collectionAddress varchar(50) NOT NULL,
+    ownerAddress varchar(50) NOT NULL,
+    description varchar(50),
+    ipfs varchar(100) NOT NULL,
+    name varchar(20) NOT NULL ,
+    FOREIGN KEY(ownerAddress) REFERENCES users(address),
+    FOREIGN KEY(collectionAddress) REFERENCES collections(address)
 );
 
 CREATE TABLE attributes (
@@ -19,9 +21,10 @@ CREATE TABLE attributes (
     FOREIGN KEY (tokenId) REFERENCES items (tokenId) -- Reference the primary key column directly
 );
 
-CREATE TABLE collections (
-    contractAddress VARCHAR(50) NOT NULL,
-    ownerAddress VARCHAR(50) NOT NULL,
-    name VARCHAR(20) NOT NULL,
-    FOREIGN KEY (ownerAddress) REFERENCES users (address) -- Reference the primary key column directly
-);
+create table collections(
+    address varchar(50) not null PRIMARY KEY ,
+    ownerAddress varchar(50) not null,
+    name varchar(20) not null,
+    foreign key(ownerAddress) references users(address)
+)
+

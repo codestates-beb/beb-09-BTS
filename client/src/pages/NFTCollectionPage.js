@@ -11,16 +11,15 @@ import axios from "axios";
 
 import etherscan_logo from "../assets/etherscan-logo-circle.svg";
 
-export default async function NFTCollectionPage({ collection }) {
+export default function NFTCollectionPage({ collection }) {
   const { name } = useParams();
   const [collectionAddr, setCollectionAddr] = useState("");
 
-  const response = await axios({
+  axios({
     method: "get",
     url: `http://localhost:8080/collections/${name}`,
-  });
+  }).then((res) => console.log(res.data));
   // setCollectionAddr(response.data.contractAddress)
-  console.log(response.data);
 
   return (
     <div>

@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.nftDetailBox {
+  margin: 1rem !important;
+}
+
+.accordionContent {
+  background-color: #2185d014 !important;
+  padding: 1rem !important;
+}
